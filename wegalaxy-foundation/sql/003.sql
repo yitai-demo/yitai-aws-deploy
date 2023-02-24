@@ -1,0 +1,1 @@
+create unique index idx_space_name using hash on space(name);

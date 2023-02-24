@@ -1,0 +1,582 @@
+basePath: /v1/wegalaxy-foundation
+definitions:
+  dahelper.DACredential:
+    properties:
+      loginId:
+        type: string
+      password:
+        type: string
+    type: object
+  dahelper.DAJwtToken:
+    properties:
+      expiration:
+        type: integer
+      token:
+        type: string
+      tokenType:
+        description: refreshToken, accessToken
+        type: string
+    type: object
+  dahelper.DALoginRequest:
+    properties:
+      credential:
+        $ref: '#/definitions/dahelper.DACredential'
+      loginType:
+        type: string
+    type: object
+  dahelper.DALoginResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dahelper.DAJwtToken'
+        type: array
+      errorCode:
+        type: integer
+      errorMessage:
+        type: string
+    type: object
+  model.CheckIfUserHasATagReq:
+    properties:
+      tagName:
+        type: string
+    type: object
+  model.CheckIfUserHasATagRsp:
+    properties:
+      data:
+        type: boolean
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.GetActiveSchedulerJobsRsp:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.SchedulerJob'
+        type: array
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.GetAllUserRoleRsp:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.UserRole'
+        type: array
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.GetSpaceByIdReq:
+    properties:
+      spaceId:
+        type: string
+    type: object
+  model.GetSpaceRsp:
+    properties:
+      data:
+        $ref: '#/definitions/model.Space'
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.GetSpacesByNamesReq:
+    properties:
+      spaceNames:
+        items:
+          type: string
+        type: array
+    type: object
+  model.GetSpacesRsp:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Space'
+        type: array
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.GetUserInfoRsp:
+    properties:
+      data:
+        $ref: '#/definitions/model.User'
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.HasAccessBySpaceNameReq:
+    properties:
+      spaceName:
+        type: string
+    type: object
+  model.HasAccessReq:
+    properties:
+      spaceId:
+        type: string
+    type: object
+  model.HasAccessRsp:
+    properties:
+      data:
+        type: boolean
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.ProcessQrCodeReq:
+    properties:
+      c:
+        type: string
+      "n":
+        type: string
+    type: object
+  model.ProcessQrCodeRsq:
+    properties:
+      data:
+        description: It varies because of different actions
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.SchedulerJob:
+    properties:
+      action:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      schedulerDefinition:
+        type: string
+      schedulerType:
+        type: string
+    type: object
+  model.Space:
+    properties:
+      cosFolder:
+        type: string
+      description:
+        type: string
+      displayOrder:
+        type: integer
+      entryPointType:
+        type: string
+      entryPointUrl:
+        type: string
+      id:
+        type: string
+      imageUrl:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+  model.UpdateUserRoleReq:
+    properties:
+      roleIds:
+        items:
+          type: string
+        type: array
+    type: object
+  model.UpdateUserRoleRsp:
+    properties:
+      data:
+        type: boolean
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+    type: object
+  model.User:
+    properties:
+      did:
+        type: string
+      id:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/model.UserRole'
+        type: array
+      status:
+        type: integer
+      tags:
+        items:
+          $ref: '#/definitions/model.UserTag'
+        type: array
+      user_id:
+        type: string
+    type: object
+  model.UserRole:
+    properties:
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+  model.UserTag:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: WeGalaxy Foundation Service
+  title: WeGalaxy Foundation Service
+  version: "1.0"
+paths:
+  /health-check:
+    get:
+      consumes:
+      - application/json
+      description: Health Check
+      operationId: health-check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Health Check
+      tags:
+      - health
+  /internal/scheduler/get-active-jobs:
+    get:
+      description: Get active scheduler jobs by scheduler group name
+      operationId: get-active-scheduler-jobs-by-scheduler-group-name
+      parameters:
+      - description: scheduler group name
+        in: query
+        name: groupName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetActiveSchedulerJobsRsp'
+      summary: Get active scheduler jobs by scheduler group name
+      tags:
+      - scheduler
+      - internal
+  /internal/users/login-da:
+    post:
+      consumes:
+      - application/json
+      description: Login DA
+      operationId: login-da
+      parameters:
+      - description: input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dahelper.DALoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dahelper.DALoginResponse'
+      summary: Login DA
+      tags:
+      - user
+  /qrcode/process:
+    post:
+      consumes:
+      - application/json
+      description: Process qr code
+      operationId: process-qr-code
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: ' Proces qr code input'
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.ProcessQrCodeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProcessQrCodeRsq'
+      summary: Process qr code
+      tags:
+      - qrcode
+  /spaces/get-all:
+    get:
+      description: Get all spaces
+      operationId: get-all-spaces
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetSpacesRsp'
+      summary: Get all spaces
+      tags:
+      - space
+  /spaces/get-by-id:
+    post:
+      consumes:
+      - application/json
+      description: Get space by ID
+      operationId: get-space-by-id
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.GetSpaceByIdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetSpaceRsp'
+      summary: Get space by ID
+      tags:
+      - user
+  /spaces/get-by-names:
+    post:
+      consumes:
+      - application/json
+      description: Get spaces by names
+      operationId: get-spaces-by-names
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.GetSpacesByNamesReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetSpacesRsp'
+      summary: Get spaces by names
+      tags:
+      - user
+  /spaces/get-user-spaces:
+    get:
+      description: Get spaces a user has access to
+      operationId: get-user-spaces
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetSpacesRsp'
+      summary: Get spaces a user has access to
+      tags:
+      - space
+  /spaces/has-access:
+    post:
+      consumes:
+      - application/json
+      description: Check is a user has access to a space
+      operationId: has-access
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: Has access input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.HasAccessReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HasAccessRsp'
+      summary: Check is a user has access to a space
+      tags:
+      - space
+  /spaces/has-access-by-space-name:
+    post:
+      consumes:
+      - application/json
+      description: Check is a user has access to a space by space name
+      operationId: has-access-by-space-name
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: Has access input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.HasAccessBySpaceNameReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HasAccessRsp'
+      summary: Check is a user has access to a space by space name
+      tags:
+      - space
+  /user-roles/get-all:
+    get:
+      description: Get all user roles
+      operationId: get-all-user-roles
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetAllUserRoleRsp'
+      summary: Get all user roles
+      tags:
+      - userrole
+  /user-roles/update:
+    post:
+      consumes:
+      - application/json
+      description: Update user roles
+      operationId: update-user-role
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: Update user roles input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUserRoleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UpdateUserRoleRsp'
+      summary: Update user roles
+      tags:
+      - userrole
+  /users:
+    get:
+      description: Get user information by ID
+      operationId: get-user
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetUserInfoRsp'
+      summary: Get user information
+      tags:
+      - user
+  /users/has-tag:
+    post:
+      consumes:
+      - application/json
+      description: Check if a user has a tag
+      operationId: check-if-a-user-has-a-tag
+      parameters:
+      - description: Token passed in Authorization in 'Bearer xxxx' format. The alternative
+          is to pass 'token=xxxx' in cookie
+        in: header
+        name: Authorization
+        type: string
+      - description: Has access input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CheckIfUserHasATagReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CheckIfUserHasATagRsp'
+      summary: Check if a user has a tag
+      tags:
+      - user
+swagger: "2.0"

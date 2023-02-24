@@ -1,0 +1,49 @@
+server:
+  port: ${APP_PORT}
+  private-key-path: ${PETCORE_PRIVATE_KEY}
+
+database:
+  login: ${DB_USER}
+  password: ${DB_PASSWORD}
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  database-name:  ${DB_NAME}
+  connection-max-idle: ${DB_CONN_MAX_IDLE}
+  connection-max-open: ${DB_CONN_MAX_OPEN}
+
+log:
+  name: wegalaxy-foundation-logger
+  level: ${LOG_LEVEL}
+  format-json: false
+  writer: file
+  writer-config:
+    filename: ${LOG_FILE}  
+    max-size: ${LOG_MAX_SIZE}                        
+    max-backups: ${LOG_MAX_BACKUPS}                           
+    max-age: ${LOG_MAX_AGE}                              
+    compress:  false             
+
+app-config:
+  gamicore-service-url: ${GAMICORE_SERVICE_URL}
+  localhost-service-url: ${LOCALHOST_SERVICE_URL}
+  app-id: wegalaxy-app             
+  user-service-url: ${USER_SERVICE_URL}         
+  user-service-source-url: true     
+  trade-service-url: ${TRADE_SERVICE_URL}        
+  gami-rank-core-url: ${GAMI_RANK_CORE_URL}
+  secret-id: ${SECRET_ID}
+  secret-key: ${SECRET_KEY}
+  cos-name: ${COS_NAME}
+
+app-auth:
+  auth:
+    - id: ${AUTH_USER_KID}
+      public-key:
+        key-content:
+        key-file: /app/keys/${AUTH_USER_PUBLIC_KEY_FILE}
+        signing-method: ${AUTH_USER_SIGNING_METHOD}
+    - id: "<nil>"
+      public-key:
+        key-content: 
+        key-file: /app/keys/${AUTH_USER_PUBLIC_KEY_FILE}
+        signing-method: ${AUTH_USER_SIGNING_METHOD}

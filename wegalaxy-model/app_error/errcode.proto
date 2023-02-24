@@ -1,0 +1,63 @@
+syntax = "proto3";
+package app_error;
+option go_package="github.com/degalaxy/wegalaxy-service/wegalaxy-model/app_error;app_error";
+
+enum RetCode {
+    SUCCEED = 0;
+	// 通用 error
+
+    // User error
+	ERR_USER_ALREADY_EXISTS  = 21000; 	// 用户已存在
+	ERR_USER_NOT_EXIST       = 21001; 	// 用户不存在
+	ERR_INVALID_USER         = 21002; 	// 无效用户 
+	ERR_AUTHSERVICE_ERROR    = 21003; 	// 鉴权服务错误
+	ERR_MISSING_USER_ID      = 21004; 	// 缺失用户id
+
+	// Qrcode error
+	ERR_INVALID_QRCODE  = 22001; 	// 无效二维码
+	ERR_REMAINING_USAGE = 22002; 	// 剩余使用次数不足
+	ERR_NO_HANDLER      = 22003; 	// 没有对应的handler
+
+	// Report error
+	ERR_REPORT_FILE_PATH_INVALID = 23001;	// 上报文件路径无效
+	ERR_ZIP_HANDLER_FAILED       = 23002;	// 压缩上报文件失败
+	ERR_SIGN_NOT_MATCH           = 23003;	// 查询上报文件鉴权sign无效
+
+	// Asset error
+	ERR_GET_LONG_TERM_TOKEN_FAILED   = 24001;	// 对公账户获取长期token失败
+	ERR_GET_DA_USER_INFO_FAILED      = 24002;	// 获取da用户信息失败
+	ERR_GET_CONTRACT_INFO_FAILED     = 24003;	// 获取合约信息失败
+	ERR_UPLOAD_COS_PIC_FAILED        = 24004;	// 上传图片到cos桶失败
+	ERR_GET_USER_DID_FAILED          = 24005;	// 获取用户did失败
+	ERR_GET_DA_USER_ID_FAILED        = 24006;	// 获取da的用户id失败
+	ERR_COMBINED_ISSUE_FAILED        = 24007;	// 组合发行失败
+	ERR_CALL_RANKS_CONTESTANT_FAILED = 24008;	// 请求排行榜服务记录发行的图片失败
+
+	// Rabbit & 1024 error
+	ERR_EGG_LOCK_USER_FAILED             = 50001;
+	ERR_EGG_LOCK_EGG_FAILED              = 50002;
+	ERR_UPDATE_EGG_COLLECTED_INFO_FAILED = 50003;
+	ERR_GET_EGG_INFO_FAILED              = 50004;
+	ERR_NO_ROWS_UPDATED                  = 50006;
+	ERR_DATA_NOT_FOUND                   = 50007;
+	ERR_HIT_LIMIT                        = 50008;
+	ERR_NO_COUPON_LEFT                   = 50009;
+	ERR_HAS_BEEN_REDEEMED                = 50010;
+	ERR_NOT_OWNER                        = 50011;
+	ERR_NOT_ENOUGH_MEDALS                = 50012;
+	ERR_EMPTY_GIFT                       = 50013;
+	ERR_ACCESS_DENIED                    = 50014;
+	ERR_GET_ASSET_DETAIL_FAILED          = 50016;
+	ERR_INVALID_TIME_PERIOD              = 50017;
+	ERR_NOT_SUPPORTED_OPERATION          = 50018;
+	ERR_GET_COMBINED_ISSUE_FAILED        = 50019;
+	ERR_PRE_UPLOAD_COS_FILES_FAILED      = 50020;
+	ERR_LOCKED_COUPON_FOUND              = 50022;
+	ERR_INVALID_IMAGE_URL                = 50023;
+	ERR_DA_ERROR                         = 50024;
+	ERR_TOO_MANY_REQUESTS                = 50025;
+
+	// New Year Rabbit
+	ERR_EMPTY_IMAGE_INFO_FROM_APP_CONFIG = 51000;
+	ERR_GET_RANDOM_UPGRADE_PARTS_FAILED = 51001;	
+}

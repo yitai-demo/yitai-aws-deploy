@@ -1,0 +1,60 @@
+server:
+  port: 9001
+  private-key-path: keys/source_auth.pem
+  
+cookie:
+  domain: localhost
+  secure: true
+  http-only: true
+
+database:
+  login: <your db account>
+  password: <your db account password>
+  host: localhost
+  port: 3306
+  database-name: wgx_foundation
+  connection-max-idle: 2
+  connection-max-open: 2
+
+redis:
+  address: 127.0.0.1:6379
+  user: 
+  password: 
+  use-tls: false
+
+log:
+  name: wegalaxy-foundation-logger
+  level: debug
+  format-json: true
+  writer: file
+  writer-config:
+    filename: ./wegalaxy-foundation.log  
+    max-size: 100                        # max size in MB
+    max-backups: 5                           
+    max-age: 7                           # max age in day    
+    compress:  false                         
+
+app-config:
+    gamicore-service-url: http://localhost:9002
+    localhost-service-url: http://localhost:6001
+    gami-rank-core-url: http://localhost:5001
+    appId: wegalaxy-app
+    user-service-url: http://175.178.37.204:18092
+    user-service-source-auth: true
+    trade-service-url: http://175.178.37.204:18099
+    secret-id: <your cos service id>
+    secret-key: <your cos service key>
+    cos-name: <your cos name>
+
+app-auth:
+  auth:
+    - id: auth-user
+      public-key:
+        key-content: 
+        key-file: <your key path>
+        signing-method: RS256
+    - id: "<nil>"
+      public-key:
+        key-content: 
+        key-file: <your key path>
+        signing-method: RS256

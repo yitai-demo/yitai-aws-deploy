@@ -1,0 +1,17 @@
+.vscode
+
+# Ignore sqlite generated db file
+*.db
+
+# Ignore backup file
+*.bak
+
+# Ignore exe
+*.exe
+
+# Ignore log
+*.log
+*.tar
+
+.DS_Store
+

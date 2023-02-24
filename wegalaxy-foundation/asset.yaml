@@ -1,0 +1,1905 @@
+openapi: 3.0.0
+info:
+  title: Event Map
+  description: 活动地图
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: /event-map/v1
+paths:
+  /activity/list-available-activity-nodes:
+    post:
+      tags:
+        - 活动接口
+      summary: 查询可用活动列表 [场景层系统]
+      description: 查询可用活动列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListAvailableActivityNodesParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableActivityNodesResponse'
+      x-codegen-request-body-name: object
+  /activity/list-available-artifact-types:
+    post:
+      tags:
+        - 活动接口
+      summary: 查询路径下可用的物料类型 [场景层系统]
+      description: 查询路径下可用的物料类型
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListAvailableNodeParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableArtifactTypeIdsResponse'
+      x-codegen-request-body-name: object
+  /activity/list-available-contract-instances:
+    post:
+      tags:
+        - 活动接口
+      summary: 查询路径下可用合约实例列表 [场景层系统]
+      description: 查询路径下可用合约实例列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListAvailableContractInstanceParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableContractInstanceResponse'
+      x-codegen-request-body-name: object
+  /activity/list-available-contract-instances-simple:
+    post:
+      tags:
+        - 活动接口
+      summary: 查询路径下可用合约实例列表simpleData [场景层系统]
+      description: 查询路径下可用合约实例列表simpleData
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListAvailableContractInstanceParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableContractInstanceResponse'
+      x-codegen-request-body-name: object
+  /activity/list-available-reports:
+    post:
+      tags:
+        - 活动接口
+      summary: 查询路径下可用的报表 [场景层系统]
+      description: 查询路径下可用的报表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListAvailableNodeParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableReportsResponse'
+      x-codegen-request-body-name: object
+  /activity/list-available-scenes:
+    get:
+      tags:
+        - 活动接口
+      summary: 查询可用场景列表 [场景层系统]
+      description: 查询可用场景列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/models.ListAvailableSceneResponse'
+  /activity/node/suspend:
+    post:
+      tags:
+        - 活动管理接口(平台用)
+      summary: 禁用活动节点 [内部系统]
+      description: 禁用活动节点
+      parameters:
+        - name: Source-Auth
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: App-Id
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.SuspendNodeParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+      x-codegen-request-body-name: object
+  /activity/node/unsuspend:
+    post:
+      tags:
+        - 活动管理接口(平台用)
+      summary: 启用活动节点 [内部系统]
+      description: 启用活动节点
+      parameters:
+        - name: Source-Auth
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: App-Id
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.SuspendNodeParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+      x-codegen-request-body-name: object
+  /activity/patch-nodes:
+    post:
+      tags:
+        - 活动管理接口(平台用)
+      summary: 更新活动节点 [内部系统]
+      description: 更新活动节点
+      parameters:
+        - name: Source-Auth
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: App-Id
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.NodePatchParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+      x-codegen-request-body-name: object
+  /activity/update-nodes:
+    post:
+      tags:
+        - 活动管理接口(平台用)
+      summary: 更新活动节点 [内部系统]
+      description: 更新活动节点
+      parameters:
+        - name: Source-Auth
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: App-Id
+          in: header
+          description: 系统间认证
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.NodeUpdateParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+      x-codegen-request-body-name: object
+  /artifact/commit-non-standard-artifact:
+    post:
+      tags:
+        - 物料接口
+      summary: 提交创建非标物料 [场景层系统]
+      description: 提交创建非标物料
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.CommitNonStandardArtifactParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.CommitNonStandardArtifactResponse'
+      x-codegen-request-body-name: object
+  /artifact/commit-standard-artifact:
+    post:
+      tags:
+        - 物料接口
+      summary: 提交新增标准物料 [场景层系统]
+      description: 提交新增标准物料
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.CommitStandardArtifactParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.CommitStandardArtifactResponse'
+      x-codegen-request-body-name: object
+  /artifact/delete-non-standard-artifact:
+    post:
+      tags:
+        - 物料接口
+      summary: 删除非标物料 [场景层系统]
+      description: 删除非标物料
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.DeleteNonStandardArtifactParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+      x-codegen-request-body-name: object
+  /artifact/list-customer-artifacts:
+    post:
+      tags:
+        - 物料接口
+      summary: 查询用户物料列表 [场景层系统]
+      description: 查询用户物料列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListCustomerArtifactsParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListCustomerArtifactsResponse'
+      x-codegen-request-body-name: object
+  /artifact/list-customer-artifacts-transactions:
+    post:
+      tags:
+        - 物料接口
+      summary: 查询用户物料交易流水列表 [场景层系统]
+      description: 查询用户物料交易流水列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.QueryArtifactTransactionsParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.QueryArtifactTransactionsResponse'
+      x-codegen-request-body-name: object
+  /artifact/withdraw-standard-artifact-commit:
+    post:
+      tags:
+        - 物料接口
+      summary: 撤销标准物料提交 [场景层系统]
+      description: 撤销标准物料提交
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: header
+          description: 交易ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 提交参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.WithdrawStandardArtifactParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.HttpResponseMeta'
+      x-codegen-request-body-name: object
+  /asset/list-customer-assets:
+    post:
+      tags:
+        - 资产接口
+      summary: 查询用户资产列表 [场景层系统]
+      description: 查询用户资产列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListCustomerAssetsParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListCustomerAssetsResponse'
+      x-codegen-request-body-name: object
+  /asset/list-customer-transaction-detail:
+    post:
+      tags:
+        - 资产接口
+      summary: 查询用户资产交易流水列表 [场景层系统]
+      description: 查询用户资产交易流水列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListCustomerTransactionDetailParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListCustomerTransactionDetailResponse'
+      x-codegen-request-body-name: object
+  /asset/list-kards-assets:
+    post:
+      tags:
+        - 资产接口
+      summary: 查询kards资产列表 [场景层系统]
+      description: 查询kards资产列表
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListKardsAssetsParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJsonKardsPageDataRetrieve'
+      x-codegen-request-body-name: object
+  /health-check:
+    get:
+      tags:
+        - 健康检查接口
+      summary: 健康检查 [内部系统]
+      description: 健康检查
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResponseJson'
+  /report/artifact-amount-report:
+    post:
+      tags:
+        - 报表接口
+      summary: 查询物料总量 [场景层系统]
+      description: 查询物料总量
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.QueryArtifactAmountReportParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.QueryArtifactAmountReportResponse'
+      x-codegen-request-body-name: object
+  /report/rank:
+    post:
+      tags:
+        - 报表接口
+      summary: 查询用户物料排名 [场景层系统]
+      description: 查询用户物料排名
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.QueryRankReportParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.QueryRankReportResponse'
+      x-codegen-request-body-name: object
+  /asset/list-customer-mdots:
+    post:
+      tags:
+        - 资产接口
+      summary: 查询用户mdot账户列表
+      description: 查询用户mdot账户列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListCustomerAssetsParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListCustomerMdotResponse'
+      x-codegen-request-body-name: object
+  /asset/list-customer-mdot-transaction-detail:
+    post:
+      tags:
+        - 资产接口
+      summary: 查询用户mdot交易流水列表
+      description: 查询用户mdot交易流水列表
+      parameters:
+        - name: Authorization
+          in: header
+          description: 客户端认证
+          required: true
+          schema:
+            type: string
+        - name: did
+          in: header
+          description: 账户did
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 查询条件
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ListCustomerTransactionDetailParam'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListCustomerMdotTransactionDetailResponse'
+      x-codegen-request-body-name: object
+
+components:
+  schemas:
+    models.ArtifactTypeInfo:
+      type: object
+      properties:
+        category:
+          type: string
+        description:
+          type: string
+        displayName:
+          type: string
+        fileType:
+          type: string
+        guid:
+          type: string
+        isNotificationNeeded:
+          type: boolean
+        needAudit:
+          type: integer
+        path:
+          type: string
+        presentMode:
+          type: string
+        sceneId:
+          type: string
+        status:
+          type: string
+        typeId:
+          type: string
+    models.ArtifactsListData:
+      type: object
+      properties:
+        nonStandardArtifacts:
+          $ref: '#/components/schemas/models.NonStandardArtifactsPageData'
+        standardArtifacts:
+          $ref: '#/components/schemas/models.StandardArtifactsPageData'
+    models.QueryArtifactTransactionsData:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.ArtifactTransactionContentObj'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoResult'
+    models.Asset:
+      type: object
+      properties:
+        issuer:
+          type: string
+        issuerName:
+          type: string
+        contractAddress:
+          type: string
+        contractTemplateId:
+          type: string
+        contractMerits:
+          type: string
+        contractType:
+          type: string
+          description: 'contractTemplate.contractType: non-fungible, non-fungible-secured,
+            non-fungible-quantifiable'
+        createdAt:
+          type: string
+        id:
+          type: string
+        metadata:
+          type: string
+        nodePathList:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        ownerName:
+          type: string
+        sceneId:
+          type: string
+        type:
+          type: string
+          description: assetType 徽章A
+        updatedAt:
+          type: string
+        uri:
+          type: string
+        value:
+          type: integer
+        writeOff:
+          type: boolean
+    models.AssetRetrieve:
+      type: object
+      properties:
+        assetAmountCount:
+          type: integer
+          description: 指当前查询条件下（非分页列表里的）总的 asset （Ticket类）面额
+        assetList:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.Asset'
+        assetTotalCount:
+          type: integer
+          description: 指当前查询条件下（非分页列表里的）总的 asset 行数
+    models.AssetsPageDataRetrieve:
+      type: object
+      properties:
+        contents:
+          $ref: '#/components/schemas/models.AssetRetrieve'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfo'
+    models.CommitNonStandardArtifactParam:
+      required:
+        - artifactTypeId
+        - content
+        - fileFormat
+      type: object
+      properties:
+        artifactTypeId:
+          type: string
+        content:
+          type: string
+        description:
+          type: string
+        fileFormat:
+          type: string
+        manualVerificationNeeded:
+          type: boolean
+    models.CommitNonStandardArtifactResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NonStandardArtifactsCreateObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.CommitStandardArtifactDataObj:
+      type: object
+      properties:
+        addNumber:
+          type: integer
+        artifactsTypeId:
+          type: string
+        createTime:
+          type: string
+        guid:
+          type: string
+        lockedNumber:
+          type: integer
+        usedNumber:
+          type: integer
+        userDid:
+          type: string
+    models.CommitStandardArtifactParam:
+      type: object
+      properties:
+        amount:
+          type: integer
+        artifactTypeId:
+          type: string
+        description:
+          type: string
+        manualVerificationNeeded:
+          type: boolean
+    models.CommitStandardArtifactResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.CommitStandardArtifactDataObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ContractInstanceListObjResp:
+      required:
+        - contractTemplate
+      type: object
+      properties:
+        attributes:
+          type: object
+          description: 合约属性,根据合约模版动态定义
+        contractTemplate:
+          type: object
+          description: 合约模版内容,新建时必填,更新时可不传
+        contractInstanceId:
+          type: string
+          description: 合约实例ID,新建时如果为空会随机创建一个,更新时必填
+        contractInstanceName:
+          type: string
+          description: 实例名称
+        legalFunctions:
+          type: array
+          description: 合约实例合法操作函数
+          items:
+            type: string
+        logo:
+          type: string
+          description: 合约实例logo
+        nodePath:
+          type: string
+          description: 活动标签
+        nodePathList:
+          type: array
+          items:
+            type: string
+        placeholderLogo:
+          type: string
+        status:
+          type: string
+          description: 合约实例状态
+        customData:
+          type: object
+          description: 自定义数据
+        blockchainType:
+          type: string
+          description: 链类型
+        blockchainId:
+          type: string
+          description: 链id
+    models.DeleteNonStandardArtifactParam:
+      required:
+        - artifactIds
+      type: object
+      properties:
+        artifactIds:
+          type: array
+          items:
+            type: string
+        artifactTypeId:
+          type: string
+    models.KardsRetrievePageDataResp:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.Kards'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfo'
+    models.HttpResponseMeta:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListAvailableActivityNodesDataObj:
+      type: object
+      properties:
+        nodeCode:
+          type: string
+        nodeLogoPic:
+          type: string
+        nodeName:
+          type: string
+        sceneId:
+          type: string
+        customData:
+          type: object
+        logo:
+          type: string
+    models.ListAvailableActivityNodesParam:
+      type: object
+      properties:
+        currentPath:
+          type: string
+          description: 当前路径
+        isContainOtherScene:
+          type: boolean
+          description: 是否包含其它场景的节点，默认false
+        sceneId:
+          type: string
+          description: 场景ID
+    models.ListAvailableActivityNodesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.ListAvailableActivityNodesDataObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListAvailableArtifactTypeIdObj:
+      type: object
+      properties:
+        artifactCategory:
+          type: string
+        artifactTypeId:
+          type: string
+        name:
+          type: string
+    models.ListAvailableArtifactTypeIdsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.ListAvailableArtifactTypeIdObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListAvailableContractInstanceParam:
+      type: object
+      properties:
+        contractTemplateIds:
+          type: array
+          items:
+            type: string
+        currentPath:
+          type: string
+        matchChildrenInstance:
+          type: boolean
+        sceneId:
+          type: string
+    models.ListAvailableContractInstanceResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.ContractInstanceListObjResp'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListAvailableNodeParam:
+      type: object
+      properties:
+        currentPath:
+          type: string
+        sceneId:
+          type: string
+    models.ListAvailableReportObj:
+      type: object
+      properties:
+        name:
+          type: string
+        reportId:
+          type: string
+    models.ListAvailableReportsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.ListAvailableReportObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListAvailableSceneObj:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        root_code:
+          type: string
+        root_id:
+          type: string
+        root_name:
+          type: string
+        scene_id:
+          type: string
+    models.ListAvailableSceneResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.ListAvailableSceneObj'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListCustomerArtifactsParam:
+      type: object
+      properties:
+        artifactCategory:
+          type: string
+          description: 物料类别，枚举[standard、nonstandard、all]，默认all
+        filterInfo:
+          type: array
+          description: 查询过滤条件
+          items:
+            $ref: '#/components/schemas/models.QueryFilterObj'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoParam'
+        sceneId:
+          type: string
+          description: 场景ID
+    models.ListCustomerArtifactsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.ArtifactsListData'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.QueryArtifactTransactionsParam:
+      type: object
+      properties:
+        artifactId:
+          type: string
+          description: 物料 id
+        filterInfo:
+          type: array
+          description: 查询过滤条件
+          items:
+            $ref: '#/components/schemas/models.QueryFilterObj'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoParam'
+    models.QueryArtifactTransactionsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.QueryArtifactTransactionsData'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListCustomerAssetsParam:
+      type: object
+      properties:
+        contractAddress:
+          type: array
+          items:
+            type: string
+        contractTemplateIds:
+          type: array
+          items:
+            type: string
+        contractType:
+          type: string
+        currentPath:
+          type: string
+        matchChildrenInstance:
+          type: boolean
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoParam'
+        sceneId:
+          type: string
+    models.ListCustomerAssetsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.AssetsPageDataRetrieve'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListCustomerTransactionDetailParam:
+      type: object
+      properties:
+        contractAddress:
+          type: array
+          items:
+            type: string
+        contractTemplateIds:
+          type: array
+          items:
+            type: string
+        currentPath:
+          type: string
+        fromOwner:
+          type: string
+        matchChildrenInstance:
+          type: boolean
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoParam'
+        sceneId:
+          type: string
+        toOwner:
+          type: string
+    models.ListCustomerTransactionDetailResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.TransactionDetailPageData'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.ListKardsAssetsParam:
+      type: object
+      properties:
+        assetOwner:
+          type: string
+        contractAddress:
+          type: array
+          items:
+            type: string
+        contractTemplateIds:
+          type: array
+          items:
+            type: string
+        currentPath:
+          type: string
+        matchChildrenInstance:
+          type: boolean
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoParam'
+        sceneId:
+          type: string
+    models.ResponseJsonKardsPageDataRetrieve:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.KardsRetrievePageDataResp'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.NodeLinkTable:
+      type: object
+      properties:
+        linkType:
+          type: string
+          description: 关系类型，枚举[parent、ref]，默认parent
+        nodeLinkId:
+          type: string
+        sceneId:
+          type: string
+          description: 场景ID
+        sourceNode:
+          type: string
+          description: 起始节点ID
+        targetNode:
+          type: string
+          description: 目标节点ID
+    models.NodePatchParam:
+      type: object
+      properties:
+        nodeId:
+          type: string
+        order:
+          type: integer
+    models.NodeTable:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 如果nodeType=[event、instance]->node表code列，如果nodeType=artifact->artifact_type表里content的typeId字段
+        logo:
+          type: string
+          description: nodeType=[event、instance]->node表logo列，其它nodeType传空
+        name:
+          type: string
+          description: 如果nodeType=[event、instance]->node表name列，如果nodeType=artifact->artifact_type表里content的displayName字段
+        nodeAttributes:
+          type: object
+          properties: {}
+        nodeId:
+          type: string
+          description: 如果nodeType=[event、instance]->node表id列，如果nodeType=artifact->artifact_type表id列
+        nodeType:
+          type: string
+          description: 节点类型，枚举[event、instance、artifact、report]
+        order:
+          type: integer
+        placeholderLogo:
+          type: string
+          description: nodeType=[event、instance]->node表placeholder_logo列，其它nodeType传空
+        sceneId:
+          type: string
+          description: 如果nodeType=[event、instance]->node表scene_id列，如果nodeType=artifact->artifact_type表scene_id列
+        tagRules:
+          $ref: '#/components/schemas/models.NodeTagRules'
+    models.NodeTagRule:
+      type: object
+      properties:
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NodeTagRuleObj'
+    models.NodeTagRuleContent:
+      type: object
+      properties:
+        tagId:
+          type: string
+        tagName:
+          type: string
+    models.NodeTagRuleObj:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/models.NodeTagRuleContent'
+        type:
+          type: string
+    models.NodeTagRules:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NodeTagRule'
+    models.NodeUpdateParam:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NodeLinkTable'
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NodeTable'
+    models.NonStandardArtifactContentObj:
+      type: object
+      properties:
+        artifactTypeInfo:
+          $ref: '#/components/schemas/models.ArtifactTypeInfo'
+        artifactsHash:
+          type: string
+        artifactsTypeId:
+          type: string
+        artifactsUrl:
+          type: string
+        fileFormat:
+          type: string
+        fileType:
+          type: string
+        guid:
+          type: string
+        status:
+          type: string
+        tag:
+          type: string
+        userDid:
+          type: string
+    models.ArtifactTransactionContentObj:
+      type: object
+      properties:
+        guid:
+          type: string
+        artifactsGuid:
+          type: string
+        auditStatus:
+          type: string
+        operationDescription:
+          type: string
+        operationInvoker:
+          type: string
+        operationType:
+          type: string
+        transactionId:
+          type: string
+        userDid:
+          type: string
+        number:
+          type: integer
+        standard:
+          type: integer
+        createTime:
+          type: string
+        updateTime:
+          type: string
+        artifactsTypeId:
+          type: string
+    models.NonStandardArtifactsCreateObj:
+      type: object
+      properties:
+        artifactsContent:
+          type: string
+        artifactsHash:
+          type: string
+        artifactsTypeId:
+          type: string
+        artifactsUrl:
+          type: string
+        auditStatus:
+          type: string
+          enum:
+            - unaudited
+            - '""'
+        createTime:
+          type: string
+        fileFormat:
+          type: string
+        fileType:
+          type: string
+        guid:
+          type: string
+        operationDescription:
+          type: string
+        operationInvoker:
+          type: string
+        status:
+          type: string
+        tag:
+          type: string
+        transactionId:
+          type: string
+        updateTime:
+          type: string
+        userDid:
+          type: string
+    models.NonStandardArtifactsPageData:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.NonStandardArtifactContentObj'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoResult'
+    models.PageInfo:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          description: 每页数量
+        startIndex:
+          type: integer
+          description: 开始页
+        totalRows:
+          type: integer
+          description: 总量,查询时不用传
+    models.PageInfoParam:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+          description: 当前页
+        pageSize:
+          type: integer
+          description: 每页数量
+    models.PageInfoResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          description: 每页数量
+        startIndex:
+          type: integer
+          description: 开始页
+        totalRows:
+          type: integer
+          description: 总量,查询时不用传
+    models.QueryArtifactAmountReportData:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.RequestRankReportContentObj'
+        createdAt:
+          type: string
+    models.QueryArtifactAmountReportParam:
+      required:
+        - dateOfReport
+        - taskId
+      type: object
+      properties:
+        dateOfReport:
+          type: string
+        taskId:
+          type: string
+    models.QueryArtifactAmountReportResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.QueryArtifactAmountReportData'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.QueryFilterObj:
+      type: object
+      properties:
+        filterField:
+          type: string
+          description: 条件字段
+        filterValue:
+          type: object
+          description: 过滤值
+        filteringRule:
+          type: string
+          description: 过滤规则
+    models.QueryRankReportListObj:
+      type: object
+      properties:
+        userArtifactAmount:
+          type: integer
+        userDid:
+          type: string
+        userLoginId:
+          type: string
+        userProfilePic:
+          type: string
+        userRank:
+          type: integer
+        username:
+          type: string
+    models.QueryRankReportParam:
+      required:
+        - dateOfRanking
+        - taskId
+        - toRank
+      type: object
+      properties:
+        artifactTypeId:
+          type: string
+        dateOfRanking:
+          type: string
+        fromRank:
+          type: integer
+        sceneId:
+          type: string
+        taskId:
+          type: string
+        toRank:
+          type: integer
+    models.QueryRankReportResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.QueryRankReportResponseData'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.QueryRankReportResponseData:
+      type: object
+      properties:
+        artifactTypeId:
+          type: string
+        myArtifactAmount:
+          type: integer
+        myName:
+          type: string
+        myProfilePic:
+          type: string
+        myRank:
+          type: integer
+        rankList:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.QueryRankReportListObj'
+        reportGenerationDate:
+          type: string
+        totalParticipantCount:
+          type: integer
+    models.RequestRankReportContentObj:
+      type: object
+      properties:
+        amount:
+          type: integer
+        artifactTypeId:
+          type: string
+        did:
+          type: string
+    models.ResponseJson:
+      type: object
+      properties:
+        data:
+          type: object
+          description: 结果数据
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.StandardArtifactsContentObj:
+      type: object
+      properties:
+        addNumber:
+          type: integer
+        artifactsTypeId:
+          type: string
+        artifactsTypeInfo:
+          $ref: '#/components/schemas/models.ArtifactTypeInfo'
+        guid:
+          type: string
+        lockedNumber:
+          type: integer
+        usedNumber:
+          type: integer
+        userDid:
+          type: string
+    models.StandardArtifactsPageData:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.StandardArtifactsContentObj'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfoResult'
+    models.SuspendNodeParam:
+      required:
+        - nodeIds
+      type: object
+      properties:
+        nodeIds:
+          type: array
+          items:
+            type: string
+        nodeType:
+          type: string
+    models.TransactionDetail:
+      type: object
+      properties:
+        contractAddress:
+          type: string
+        contractMerits:
+          type: string
+        createdAt:
+          type: string
+        fromOwner:
+          type: string
+        id:
+          type: string
+        toOwner:
+          type: string
+        transactionId:
+          type: string
+        value:
+          type: integer
+          description: Ticket的交易记录原 amount(面额) 值
+        valueNew:
+          type: integer
+          description: Ticket的交易记录新 amount(面额) 值
+        writeOff:
+          type: boolean
+          description: owner，ticket的面额，是否核销的变化对比
+        writeOffNew:
+          type: boolean
+          description: owner，ticket的面额，是否核销的变化对比
+    models.TransactionDetailPageData:
+      type: object
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.TransactionDetail'
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfo'
+    models.WithdrawStandardArtifactParam:
+      type: object
+      properties:
+        artifactTypeId:
+          type: string
+    models.ListCustomerMdotTransactionDetailResponse:
+      type: object
+      properties:
+        httpResponseMeta:
+          $ref: '#/components/schemas/models.HttpResponseMeta'
+        data:
+          $ref: '#/components/schemas/models.MdotTransactionDetailPageData'
+
+    models.MdotTransactionDetailPageData:
+      type: object
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfo'
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.MdotTransactionDetail'
+    models.MdotTransactionDetail:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        contractAddress:
+          type: string
+        blockchainId:
+          type: string
+        fromOwner:
+          type: string
+        toOwner:
+          type: string
+        valueNew:
+          type: string
+        createdAt:
+          type: string
+    models.ListCustomerMdotResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/models.MdotRetrievePageDataResp'
+        errorCode:
+          type: integer
+          description: 错误码,0是成功,非0为失败
+        errorMessage:
+          type: string
+          description: 错误信息
+    models.MdotRetrievePageDataResp:
+      type: object
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/models.PageInfo'
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.Mdot'
+
+    models.Mdot:
+      type: object
+      properties:
+        contractAddress:
+          type: string
+        account:
+          type: string
+        balance:
+          type: number
+        updateTime:
+          type: string
+        nodePathList:
+          type: array
+          items:
+            type: string
+
+    models.Kards:
+      type: object
+      properties:
+        assetAmount:
+          type: integer
+          description: 面额(Kard无)
+        assetId:
+          type: string
+          description: kards资产 ID
+        assetIssuer:
+          type: string
+          description: 发行人
+        assetOperator:
+          type: string
+          description: 代理人
+        assetOwner:
+          type: string
+          description: 所有人
+        assetUri:
+          type: string
+          description: 资产 uri
+        kardRemark:
+          type: string
+          description: kards备注
+        kardValue:
+          type: string
+          description: kards价值
+        assetIssueTime:
+          type: string
+          description: 资产发行时间
+        assetIssuerName:
+          type: string
+          description: 发行人名称
+        assetOperatorName:
+          type: string
+          description: 代理人名称
+        assetOwnerName:
+          type: string
+          description: 所有人名称
