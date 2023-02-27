@@ -15,9 +15,9 @@ require (
 
 // replace github.com/degalaxy/gp-common => ../../gp-common
 
-replace github.com/degalaxy/wegalaxy-service/wegalaxy-model/model => ./wegalaxy-model/model
+replace github.com/degalaxy/wegalaxy-service/wegalaxy-model/model => ../wegalaxy-model/model
 
-replace github.com/degalaxy/wegalaxy-service/wegalaxy-model/app_error => ./wegalaxy-model/app_error
+replace github.com/degalaxy/wegalaxy-service/wegalaxy-model/app_error => ../wegalaxy-model/app_error
 
 // replace github.com/degalaxy/helper/dahelper => ../../helper/dahelper
 

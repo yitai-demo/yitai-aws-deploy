@@ -13,7 +13,6 @@ import (
 
 	"github.com/degalaxy/gp-common/filter"
 	"github.com/degalaxy/gp-common/gp_error"
-	"github.com/degalaxy/gp-common/lockmanager"
 	"github.com/degalaxy/gp-common/log"
 	gp_repo "github.com/degalaxy/gp-common/repository"
 	gp_service "github.com/degalaxy/gp-common/service"
@@ -165,12 +164,11 @@ func initAPI(r *gin.Engine) {
 	daHelper := dahelper.NewDAHelper(daConfig)
 
 	// Init Controller
-	lckMgr := lockmanager.NewDBLockManager(dbConnection, lockmanager.DEFAULT_KEY_EXPIRY_CHECK_TIME_INTERVAL)
+	// lckMgr := lockmanager.NewDBLockManager(dbConnection, lockmanager.DEFAULT_KEY_EXPIRY_CHECK_TIME_INTERVAL)
 	ctrlCtx, err := common_ctrl.NewControllerContext(
 		verifyTokenService,
 		daHelper,
 		dbConnection, // redisConnection,
-		lckMgr,
 	)
 	if err != nil {
 		log.Logger.Fatal("Error initializing ControllerContext" + err.Error())
