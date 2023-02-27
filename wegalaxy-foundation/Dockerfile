@@ -1,6 +1,6 @@
 ARG PRJNAME="wegalaxy-foundation"
-ARG PRJPATH="github.com/degalaxy/wegalaxy-service/${PRJNAME}"
-ARG PRJROOT="github.com/degalaxy/wegalaxy-service"
+ARG PRJPATH="github.com/degalaxy/yitai-aws-deploy/${PRJNAME}"
+ARG PRJROOT="github.com/degalaxy/yitai-aws-deploy"
 
 FROM golang:1.17-alpine AS builder
 ARG GITHUB_TOKEN
