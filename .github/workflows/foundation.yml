@@ -1,0 +1,65 @@
+name: WGX - foundation-deploy-test
+on:
+  workflow_dispatch:
+    inputs:
+      releaseBranch:
+        description: 'Release Branch'
+        required: true
+        default: 'main'
+      version:
+        description: 'Image Version'
+        required: true
+        default: 'dev'
+
+env:
+  SUB_DIR: './wegalaxy-foundation'
+  ECR_REPO: 'wegalaxy-foundation'
+  GH_REPO: 'yitai-aws-deploy'
+  ORG: yitai-demo
+  CLUSTER_VPC_REGION: 'ap-southeast-1'
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S_GITHUB_ACTION_KEY_ID}}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S_GITHUB_ACTION_ACCESS_KEY }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+
+jobs:
+  deploy-ecr-task:
+    name: Upload image to AWS ECR
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.CLUSTER_VPC_REGION }}
+
+      - name: Check out From Original Service Github Repository (Private)
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.ORG }}/${{ env.GH_REPO }}
+          token: ${{ env.GITHUB_TOKEN }}
+          ref: ${{ github.event.inputs.releaseBranch }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.ECR_REPO }}
+          IMAGE_TAG: ${{ github.event.inputs.version }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -f ${{ env.SUB_DIR }}/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .  --build-arg GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
